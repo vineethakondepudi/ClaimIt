@@ -1,0 +1,113 @@
+.mat-sidenav {
+  transform: none;
+  visibility: visible !important;
+  width: 14rem;
+  border-right: solid 0.2px lightgray;
+  transition: width 0.3s ease;
+}
+
+.mat-sidenav.minimized {
+  width: 4rem;
+}
+
+.mat-sidenav-content.minimized {
+  margin-left: 4rem !important;
+}
+
+.mat-sidenav-content.maximized {
+  margin-left: 224px !important
+}
+
+.toolbar {
+  color: var(--mat-sys-primary-container);
+  background: var(--mat-sys-primary);
+  position: fixed;
+  z-index: 2;
+  height: 4rem;
+}
+
+.mat-drawer {
+  border-radius: 0px !important;
+}
+
+.mat-drawer[style*="visibility: hidden"] {
+  display: flex;
+}
+
+.active-indicator-color {
+  background-color: var(--mat-list-active-indicator-color, var(--mat-sys-primary-container));
+  border-radius: 0px !important;
+  border-left: solid 4px var(--mat-sys-tertiary);
+}
+
+.mat-mdc-nav-list .mat-mdc-list-item {
+  border-radius: 0px !important;
+}
+
+:host ::ng-deep .mat-mdc-list-item-unscoped-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem !important;
+  color: var(--mat-sys-primary);
+  transition: color 0.3s ease;
+}
+
+:host ::ng-deep .mdc-list-item__primary-text:focus {
+  color: var(--mat-sys-primary);
+}
+
+.mdc-list-item:focus {
+  background-color: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-tertiary);
+  border-left: solid 4px;
+
+}
+
+.toggleButton {
+  color: var(--mat-sys-secondary-container);
+}
+
+.profile-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 0px solid white;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.icons p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: medium;
+}
+
+// @media screen and (max-width: 768px) {
+//   .toolbar {
+//     justify-content: space-between;
+//     .app-name {
+//       display: none;
+//     }
+//   }
+
+//   .sidenav-container {
+//     top: 4rem;
+//     height: calc(100vh - 4rem);
+//   }
+
+//   .mat-sidenav {
+//     width: 100%;
+//     visibility: hidden;
+//     transform: translateX(-100%);
+//     transition: transform 0.3s ease, visibility 0s linear 0.3s;
+//   }
+
+//   .mat-sidenav.opened {
+//     transform: translateX(0);
+//     visibility: visible;
+//     transition: transform 0.3s ease;
+//   }
+// }

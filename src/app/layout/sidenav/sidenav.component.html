@@ -1,0 +1,74 @@
+<div class="">
+  <mat-toolbar class="toolbar flex justify-between">
+    <div class="flex items-center">
+      <h1 class="ml-2 !ml-10">LOGO</h1>
+      <button
+        mat-icon-button
+        (click)="toggleSidenav()"
+        class="toggleButton ml-16"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <div class="icons flex items-center gap-4">
+      <p routerLink="/about-us">
+        <mat-icon>info</mat-icon>
+        AboutUs
+      </p>
+      <p routerLink="/contact-us">
+        <mat-icon>phone</mat-icon>
+        Contact Us
+      </p>
+      <p routerLink="/help">
+        <mat-icon>help</mat-icon>
+        Help
+      </p>
+      <p routerLink="/login">
+        <mat-icon>login</mat-icon>
+        Login
+      </p>
+      <mat-icon (click)="toggleTheme()">palette</mat-icon>
+      <!-- <span><img [src]="profImage" alt="Profile" class="profile-img" /> </span> -->
+    </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container
+    [hasBackdrop]="true"
+    class="relative top-16 h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)]"
+  >
+    <mat-sidenav
+      #snav
+      [mode]="'push'"
+      (openedChange)="onSidenavStateChange($event)"
+      [ngClass]="{ minimized: !isSideNavStatus && !isMobile }"
+    >
+      <mat-nav-list class="!mt-8">
+        @for (nav of fillerNav; track nav) {
+        <a
+          mat-list-item
+          [routerLink]="nav.routeLink"
+          [routerLinkActive]="nav.routeLink ? 'active-indicator-color' : ''"
+          #tooltip="matTooltip"
+          [matTooltip]="!isSideNavStatus ? nav.name : ''"
+          [matTooltipPosition]="'right'"
+        >
+          <mat-icon aria-hidden="false" fontIcon="{{ nav.icon }}"></mat-icon>
+          @if(isSideNavStatus){<span>{{ nav.name }}</span
+          >}
+        </a>
+        }
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content
+      [ngClass]="{
+        minimized: !isSideNavStatus,
+        maximized: isSideNavStatus
+      }"
+    >
+      <div class="p-6">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
