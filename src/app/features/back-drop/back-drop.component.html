@@ -1,0 +1,30 @@
+<div class="px-gutter pt-2 pb-16 flex-none h-[8rem] bg-color">
+  <p class="m-6 font-bold text-2xl subpixel-antialiased">
+    <ng-content select="[header]"></ng-content>
+  </p>
+</div>
+@if(isCard){
+<div class="relative -mt-20 p-6">
+  <mat-card appearance="outlined" class="p-6">
+    <ng-content select="[content]"></ng-content>
+  </mat-card>
+</div>
+} @if(isExpansionPanel){
+<div class="relative -mt-20 p-6">
+  <mat-accordion>
+    <mat-expansion-panel
+      [expanded]="panelOpenState()"
+      (opened)="panelOpenState.set(true)"
+      (closed)="panelOpenState.set(false)"
+      hideToggle="true"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title></mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="p-6">
+        <ng-content select="[content]"></ng-content>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+}
