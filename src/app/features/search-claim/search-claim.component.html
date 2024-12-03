@@ -1,1 +1,53 @@
-<p>search-claim works!</p>
+<mat-tab-group>
+    <mat-tab label="Item Type">
+        <div class="flex items-center lablestyle">
+            <mat-form-field class="flex-1" appearance="outline">
+              <mat-label>Search</mat-label>
+              <input  type="text"
+              placeholder="Select itemType"
+              aria-label="Select itemType"
+              matInput />
+            </mat-form-field>
+          
+            <button mat-raised-button color="primary" class="search-button">
+              <span class="flex items-center space-x-1">
+                <mat-icon>search</mat-icon>
+                <span>Search</span>
+              </span>
+            </button>
+          </div>
+           </mat-tab>
+    <mat-tab label="Picture"> 
+        <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>
+              Drag and drop image here or click to upload
+            </ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files" [file]="f"></ngx-dropzone-preview>
+          </ngx-dropzone>
+          <button mat-raised-button color="primary" class="z-0" (click)="onImportToExcel()">
+            <mat-icon>upload</mat-icon>
+            Upload Image
+        </button>
+    </mat-tab>
+    <mat-tab label="Category"> 
+        <mat-tab-group>
+            <mat-tab label="Category">
+              <h2>Category</h2>
+              <mat-form-field>
+                <mat-label>Favorite food</mat-label>
+                <mat-select>
+                  @for (food of foods; track food) {
+                    <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </mat-tab>
+          </mat-tab-group>
+          
+          <!-- Button aligned beside the tab -->
+          <div style="margin-top: 16px;">
+            <button mat-raised-button color="primary">Search</button>
+          </div>
+           </mat-tab>
+  </mat-tab-group>
+  
