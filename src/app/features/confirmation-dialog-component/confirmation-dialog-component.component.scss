@@ -1,0 +1,36 @@
+:host {
+    display: block;
+    text-align: center;
+  
+    h1 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+  
+    mat-dialog-content {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+  
+    mat-dialog-actions {
+      display: flex;
+      justify-content: space-between;
+  
+      button {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        min-width: 80px;
+  
+        &.mat-button {
+          color: #007bff;
+        }
+  
+        &.mat-button[mat-dialog-close="true"] {
+          color: #d32f2f; // Red for "Yes"
+        }
+      }
+    }
+  }
+  

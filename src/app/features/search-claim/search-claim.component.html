@@ -1,1 +1,59 @@
-<p>search-claim works!</p>
+<mat-tab-group>
+    <!-- Tab 1 -->
+    <mat-tab label="Item Type"><br>
+        <div class="flex items-center justify-center lablestyle">
+            <mat-form-field class="flex-1 small-input" appearance="outline">
+                <mat-label>Search</mat-label>
+                <input 
+                    type="text" 
+                    placeholder="Select itemType" 
+                    aria-label="Select itemType" 
+                    matInput 
+                    [(ngModel)]="searchQuery" 
+                />
+            </mat-form-field>
+            <button mat-flat-button class="search-button" (click)="onSearch()">
+                <span class="flex items-center space-x-2">
+                    <mat-icon>search</mat-icon>
+                    <span>Search</span>
+                </span>
+            </button>
+        </div>
+        <div *ngFor="let item of searchResults" class="card-container">
+            <mat-card class="search-card">
+                <mat-card-content>
+                    <img *ngIf="item.image" [src]="'data:image/jpeg;base64,' + item.image" alt="Item Image" class="item-image" />
+                    <p *ngIf="!item.image">No image available</p>
+                </mat-card-content>
+                <mat-card-header>
+                    <mat-card-title>{{ item.itemName }}</mat-card-title>
+                </mat-card-header>
+            </mat-card>
+        </div>
+    </mat-tab>
+    <mat-tab label="Picture"><br>
+        <div class="upload-container">
+          <ngx-dropzone class="dropzone">
+            <ngx-dropzone-label>
+              Drag and drop an image here or click to upload
+            </ngx-dropzone-label>
+            <ngx-dropzone-preview></ngx-dropzone-preview>
+          </ngx-dropzone><br />
+          <button mat-raised-button color="primary">
+            <mat-icon>upload</mat-icon>
+            Upload Image
+          </button>
+        </div>
+      </mat-tab>
+    <mat-tab label="Category"><br>
+        <div>
+            <mat-form-field>
+                <mat-label>Favorite food</mat-label>
+                <input matInput placeholder="Enter your favorite food" [(ngModel)]="favoriteFood" />
+            </mat-form-field>
+        </div>
+        <div style="margin-top: 16px;">
+            <button mat-raised-button color="primary">Search</button>
+        </div>
+    </mat-tab>
+</mat-tab-group>

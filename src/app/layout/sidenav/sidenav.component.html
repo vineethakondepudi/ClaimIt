@@ -1,7 +1,7 @@
 <div class="">
   <mat-toolbar class="toolbar flex justify-between">
     <div class="flex items-center">
-      <h1 class="ml-2 !ml-10">LOGO</h1>
+      <img  src="assets/loginLogo.jpg"  alt="Logo" class="ml-2 !ml-10 h-8 w-auto" />
       <button
         mat-icon-button
         (click)="toggleSidenav()"
@@ -41,6 +41,7 @@
       [mode]="'push'"
       (openedChange)="onSidenavStateChange($event)"
       [ngClass]="{ minimized: !isSideNavStatus && !isMobile }"
+      *ngIf="!isLoginPage"
     >
       <mat-nav-list class="!mt-8">
         @for (nav of fillerNav; track nav) {
