@@ -1,3 +1,45 @@
 .lablestyle{
     margin-bottom: '20px'
 }
+.mat-card {
+    @apply bg-white p-4 rounded-lg;
+  }
+  .mat-card-title {
+    @apply text-xl font-bold;
+  }
+  .mat-tab-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+
+  }
+  
+  .mat-tab-body-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ensure full width */
+    text-align: center;
+  }
+  
+  .flex {
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Flexibility in layout */
+  }
+  
+  .mat-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .mat-card:hover {
+    transform: translateY(-5px); /* Hover effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  }
