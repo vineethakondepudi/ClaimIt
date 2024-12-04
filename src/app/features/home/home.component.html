@@ -2,15 +2,14 @@
   <div class="flex items-center justify-center">
     <div class="w-[68rem]">
       <ng-image-slider
-  #nav
-  [images]="imageObject"
-  [infinite]="true"
-  [autoSlide]="1"   
-  [animationSpeed]="0.5" 
-  [imageSize]="{ width: '1080px', height: 350 }"
-  slideImage="1"
-></ng-image-slider>
-
+        #nav
+        [images]="imageObject"
+        [infinite]="true"
+        [autoSlide]="1"
+        [animationSpeed]="0.5"
+        [imageSize]="{ width: '1080px', height: 350 }"
+        slideImage="1"
+      ></ng-image-slider>
     </div>
     <br />
   </div>
@@ -19,9 +18,12 @@
     <span class="-ml-12 font-bold font-black text-2xl">Select Organization</span>
     <br>
     <mat-form-field class="w-2/12">
-      <mat-label>Choose an option</mat-label>
+      <mat-label>Choose an organization</mat-label>
       <mat-select [disabled]="disableSelect.value">
-        <mat-option value="option1">Miracle Software System</mat-option>
+        <mat-option value="option1">Miracle Software Systems</mat-option>
+        <mat-option value="option2">Americold</mat-option>
+        <mat-option value="option3">Sherwin Willams</mat-option>
+        <mat-option value="option4">Homo Depot</mat-option>
       </mat-select>
     </mat-form-field>
   </div>

@@ -42,6 +42,7 @@
       [mode]="'push'"
       (openedChange)="onSidenavStateChange($event)"
       [ngClass]="{ minimized: !isSideNavStatus && !isMobile }"
+      *ngIf="!isLoginPage"
     >
       <mat-nav-list class="!mt-8">
         @for (nav of fillerNav; track nav) {

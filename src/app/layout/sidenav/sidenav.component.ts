@@ -1,11 +1,11 @@
 import { BreakpointObserver, Breakpoints, MediaMatcher } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectorRef,
-  Component,
-  inject,
-  ViewChild,
-  viewChild,
+ChangeDetectorRef,
+Component,
+inject,
+ViewChild,
+viewChild,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,57 +18,57 @@ import { AppComponent } from '../../app.component';
 import { ThemeService } from '../theme.service';
 
 @Component({
-  selector: 'app-sidenav',
-  imports: [
-    CommonModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
-    RouterOutlet,
-    RouterModule,
-    MatTooltipModule,
-  ],
-  templateUrl: './sidenav.component.html',
-  styleUrl: './sidenav.component.scss',
+selector: 'app-sidenav',
+imports: [
+CommonModule,
+MatToolbarModule,
+MatButtonModule,
+MatIconModule,
+MatSidenavModule,
+MatListModule,
+RouterOutlet,
+RouterModule,
+MatTooltipModule,
+],
+templateUrl: './sidenav.component.html',
+styleUrl: './sidenav.component.scss',
 })
 export class SidenavComponent {
-  isLoginPage!: boolean;
-  isSideNavStatus: boolean = true;
+isLoginPage!: boolean;
+isSideNavStatus: boolean = true;
 
-  isMobile: boolean = false;
+isMobile: boolean = false;
 
-  profImage =
-    'https://cdn.iconscout.com/icon/free/png-512/free-user-circle-icon-download-in-svg-png-gif-file-formats--contact-profile-ui-vol-9-pack-interface-icons-3005455.png?f=webp&w=256';
-  
-    @ViewChild('snav') sidenav!: MatSidenav;
+profImage =
+'https://cdn.iconscout.com/icon/free/png-512/free-user-circle-icon-download-in-svg-png-gif-file-formats--contact-profile-ui-vol-9-pack-interface-icons-3005455.png?f=webp&w=256';
 
-  fillerNav = [
-    { name: 'Home', routeLink: '/home', icon: 'home' },
-    { name: 'Search and Claim', routeLink: 'search-claim', icon: 'search' },
-    { name: 'View/Unclaim Item', routeLink: 'view-unclaim', icon: 'task' },
-  ];
+@ViewChild('snav') sidenav!: MatSidenav;
 
-  constructor(private themeService: ThemeService, private breakpointObserver: BreakpointObserver,private router: Router) {
-    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
-      this.isMobile = result.matches;
-    });
-    this.router.events.subscribe(() => {
-      this.isLoginPage = this.router.url.includes('login'); // Check if current route is /login
-    });
-  }
+fillerNav = [
+{ name: 'Home', routeLink: '/home', icon: 'home' },
+{ name: 'Search and Claim', routeLink: 'search-claim', icon: 'search' },
+{ name: 'View/Unclaim Item', routeLink: 'view-unclaim', icon: 'task' },
+];
+
+constructor(private themeService: ThemeService, private breakpointObserver: BreakpointObserver,private router: Router) {
+this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
+this.isMobile = result.matches;
+});
+this.router.events.subscribe(() => {
+this.isLoginPage = this.router.url.includes('login'); // Check if current route is /login
+});
+}
 
 
-  toggleSidenav() {
-    this.isSideNavStatus = !this.isSideNavStatus;
-  }
+toggleSidenav() {
+this.isSideNavStatus = !this.isSideNavStatus;
+}
 
-  toggleTheme(): void {
-    this.themeService.toggleTheme();
-  }
+toggleTheme(): void {
+this.themeService.toggleTheme();
+}
 
-  onSidenavStateChange(event: boolean) {
-    this.isSideNavStatus = event; // Sync state if necessary
-  }
+onSidenavStateChange(event: boolean) {
+this.isSideNavStatus = event; // Sync state if necessary
+}
 }

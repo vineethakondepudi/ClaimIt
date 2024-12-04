@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SharedService } from '../../../shared.service';
 interface Food {
   value: string;
   viewValue: string;
@@ -46,7 +47,8 @@ interface Item {
     NgxDropzoneModule, MatSelectModule,  FormsModule,HttpClientModule
   ],
   templateUrl: './search-claim.component.html',
-  styleUrl: './search-claim.component.scss'
+  styleUrl: './search-claim.component.scss',
+  providers: [SharedService]
 })
 export class SearchClaimComponent {
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
