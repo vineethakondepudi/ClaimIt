@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { ConfirmationDialogComponentComponent } from '../confirmation-dialog-component/confirmation-dialog-component.component';
+import { DatatableComponent } from '../datatable/datatable.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-view-unclaim',
@@ -19,18 +22,59 @@ import { ConfirmationDialogComponentComponent } from '../confirmation-dialog-com
     FormsModule,
     MatButtonModule,
     ConfirmationDialogComponentComponent,
+    MatExpansionModule,
     MatDialogModule,
     MatTableModule, 
     CommonModule,
+    MatCardModule,
+    DatatableComponent
   ],
   templateUrl: './view-unclaim.component.html',
   styleUrls: ['./view-unclaim.component.scss'],
 })
 export class ViewUnclaimComponent {
   searchQuery: string = '';
-  searchResults: any[] = [];
+  @Input() containerPanelOpened: boolean = false;
+  searchResults: any= [];
   showNoResults: boolean = false;
-
+  displaycoloums: any[] = [
+    {
+      label: "Image",
+      name: "image",
+      type: "image",
+      isSortable: true,
+      position: "left",
+      isChecked: true,
+      index: 1,
+    },
+    {
+      label: "Status",
+      name: "status",
+      type: "text",
+      isSortable: true,
+      position: "left",
+      isChecked: true,
+      index: 1,
+    },
+    {
+      label: "claimDate",
+      name: "claimDate",
+      type: "text",
+      isSortable: true,
+      position: "left",
+      isChecked: true,
+      index: 1,
+    },
+    {
+      label: "Action",
+      name: "action",
+      type: "action",
+      isSortable: true,
+      position: "left",
+      isChecked: true,
+      index: 1,
+    },
+  ]
   displayedColumns: string[] = ['index', 'image', 'claimDate', 'status', 'action'];
 
   constructor(public dialog: MatDialog) {}
@@ -95,7 +139,7 @@ export class ViewUnclaimComponent {
   ];
 
   sortDataByClaimDate() {
-    this.searchResults.sort((a, b) => {
+    this.searchResults.sort((a: { claimDate: { getTime: () => number; }; }, b: { claimDate: { getTime: () => number; }; }) => {
       return b.claimDate.getTime() - a.claimDate.getTime();
     });
   }
@@ -137,7 +181,7 @@ export class ViewUnclaimComponent {
   }
 
   unclaimItem(result: any) {
-    this.searchResults = this.searchResults.filter((item) => item !== result);
+    this.searchResults = this.searchResults.filter((item: any) => item !== result);
   }
 
   cancelUnclaim(result: any) {

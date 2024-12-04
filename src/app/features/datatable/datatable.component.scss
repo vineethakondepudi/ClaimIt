@@ -1,0 +1,333 @@
+.InnerTable {
+
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    padding: 5px;
+    margin-bottom: 5px;
+    // margin-top:5px ;
+  
+    border: 1px solid #dddddd;
+  
+  }
+  
+  .innerData {
+    border: 1px solid #dddddd;
+    text-align: left;
+  
+  
+  }
+  :host ::ng-deep .backgrougcolour {
+    color: rgb(224, 19, 64);
+  }
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    .mat-table {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 1rem;
+      display: table;
+      border-collapse: collapse;
+      margin: 0px;
+    }
+    .mat-row,
+    .mat-header-row {
+      display: table-row;
+    }
+    .mat-cell,
+    .mat-header-cell {
+      word-wrap: initial;
+      display: table-cell;
+      padding: 0px 5px;
+      line-break: unset;
+      width: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      vertical-align: middle;
+      text-overflow: ellipsis;
+    }
+  
+    th.mat-header-cell {
+      text-align: center;
+    }
+  
+    td.mat-cell {
+      text-align: center;
+    }
+  // Service Types Columns width starts
+    .mat-column-id {
+      width: 6%;
+    }
+    .mat-column-apptTime{
+      width: 14%;
+    }
+  
+    .mat-column-description {
+      width: 18%;
+    }
+  
+    .mat-column-status {
+      width: 10%;
+    }
+  
+    .mat-column-createdOn {
+      width: 10%;
+    }
+  
+    .mat-column-createdBy {
+      width: 10%;
+    }
+  
+    .mat-column-modifiedOn{
+      width: 10%;
+    }
+  
+    .mat-column-modifiedBy{
+      width: 14%;
+    }
+    // Service Types Columns width ends
+    .mat-column-requestId{
+      width: 10%;
+    }
+    .mat-column-action{
+      width:12%;
+    }
+    .mat-column-modifiedOn{
+      width:12%;
+    }
+    .mat-column-notes{
+      width:21%;
+    }
+  // manual services
+  
+    .mat-column-accessorialStatus{
+      width:11%;
+    }
+    .mat-column-facilityCustomer-internalId {
+      width:10%;
+    }
+    .mat-column-facility-facilityId{
+      width:13%;
+    }
+    .mat-column-service-description{
+      width:12%;
+    }
+    .mat-column-rate{
+      width: 5%;
+    }
+    .mat-column-groupLvl{
+      width:4%;
+    }
+    .mat-column-quantity{
+      width:9%;
+    }
+    .mat-column-total{
+      width:4%;
+    }
+    //warehouse rates
+    .mat-column-serviceRatesId{
+      width:15%;
+    }
+    .mat-column-service-id{
+      width:13%;
+    }
+    .mat-column-service-description{
+      width: 20%;
+    }
+    .mat-column-uom{
+      width:5%;
+    }
+    .mat-column-rowExpand{
+      width:1%;
+    }
+    .mat-column-select{
+      width: 1%;
+    }
+    .mat-column-apptID{
+      width: 3%;
+    }
+    .mat-column-type{
+      width:8%;
+    }
+    .mat-column-time{
+      width:10%;
+    }
+    .mat-column-apptDate{
+      width:17%;
+    }
+    .mat-column-edit{
+      width:5%;
+    }
+    .mat-column-accsts{
+      width:18%;
+    }
+    .mat-column-customerName{
+      width:18%;
+    }
+    .mat-column-loadStatus{
+      width:14%;
+    }
+    // .mat-column-customer{
+    //   width:24%;
+    // }
+    // .mat-column-customer{
+    //   width:
+    // }
+    // .mat-column-customerName{
+    //   width:13%;
+    // }
+    .mat-column-internalNotes{
+      width:15%;
+    }
+    th, td {
+      max-width: 200px;
+    }
+    .custom-tooltip {
+      max-width: unset !important;
+    }
+    
+    .column-overflow{  
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  
+    ::ng-deep .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
+      opacity: 0.3 !important;
+      transform: translateY(0px) !important;
+      // color: aquamarine !important;
+    }
+    .line-break {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+    }
+    ::ng-deep.mat-sort-header-arrow {
+      color: #1b6772;
+      height: 13px;
+      padding: 2px;
+    }
+    
+    .not-sortable-header{
+      font-weight:600;
+      text-transform: uppercase;
+    }
+   
+  
+    .txt-button.downloadButton{
+      ::ng-deep.mat-mdc-raised-button{
+        font-size: 12px !important;
+      }
+    }
+  }
+  
+  .kpi-table-reponsive{
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    .mat-table {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 1rem;
+      display: table;
+      border-collapse: collapse;
+      margin: 0px;
+    }
+    .mat-row,
+    .mat-header-row {
+      display: table-row;
+    }
+    .mat-cell,
+    .mat-header-cell {
+      word-wrap: initial;
+      display: table-cell;
+      padding: 0px 5px;
+      line-break: unset;
+      width: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      vertical-align: middle;
+      text-overflow: ellipsis;
+      border: 1px solid
+    }
+  
+    th.mat-header-cell {
+      text-align: center;
+    }
+  
+    td.mat-cell {
+      text-align: center;
+    }
+    
+    .mdc-data-table__header-cell{
+      border: 1px solid #ccc;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+    }
+  
+    .mdc-data-table__cell {
+      height: 45px;
+    }
+  
+    ::ng-deep .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
+      opacity: 0.3 !important;
+      transform: translateY(0px) !important;
+      // color: aquamarine !important;
+    }
+  
+    ::ng-deep.mat-sort-header-arrow {
+      color: #1b6772;
+      height: 13px;
+      padding: 2px;
+    }
+    
+    .not-sortable-header{
+      font-weight:600;
+      text-transform: uppercase;
+    }
+  }
+  tr.example-detail-row {
+    height: 0 !important;
+  }
+  .paginator{
+    display: none;
+  }
+  
+  .mat-icon.custom-icon {
+    font-size: 24px; 
+    width: 20px; 
+    height: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #3e969f;
+    border-radius: 4px;
+    fill:transparent;
+  }
+  .custom-checkbox{
+  ::ng-deep .mdc-checkbox__background{
+    
+      background-color: #E8F2F3 !important;
+      border-color: #1b6772 !important;
+      color: #1b6772 !important;
+  }
+  ::ng-deep .mdc-checkbox__checkmark{
+    color: #1b6772 !important;
+  }
+  ::ng-deep .mdc-checkbox__mixedmark{
+    border-color: transparent !important;
+  }
+  }
+  .mat-table{
+    position:relative !important;
+  }
+  :host ::ng-deep .mat-mdc-table .mat-mdc-header-cell {
+    padding-left: 9px;
+  }
+  ::ng-deep .customer-service-truncate{
+    white-space: pre !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
