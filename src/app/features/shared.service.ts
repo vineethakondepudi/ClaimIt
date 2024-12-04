@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/operators';
 export class SharedService {
   private loginApi = "http://172.17.12.38:8081/api/users/login"; // Set the API endpoint
   private searchApi = 'http://172.17.12.38:8081/api/users/search';
+  private uploadimage = 'http://172.17.12.38:8081/api/users/uploadImageForSearch'
 
   constructor(private http: HttpClient) { }
 
@@ -26,5 +27,10 @@ export class SharedService {
   }
   searchItems(query: string): Observable<any> {
     return this.http.get(`${this.searchApi}?query=${query}`);
+    }
+    uploadImage(file: File): Observable<any> {
+      const formData: FormData = new FormData();
+      formData.append('image', file, file.name); // Append the image file to FormData
+      return this.http.post<any>(this.uploadimage, formData);
     }
 }

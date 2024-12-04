@@ -8,7 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { ConfirmationDialogComponentComponent } from '../confirmation-dialog-component/confirmation-dialog-component.component';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatExpansionModule} from '@angular/material/expansion';
 @Component({
   selector: 'app-view-unclaim',
   standalone: true,
@@ -22,6 +23,8 @@ import { ConfirmationDialogComponentComponent } from '../confirmation-dialog-com
     MatDialogModule,
     MatTableModule, 
     CommonModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule
   ],
   templateUrl: './view-unclaim.component.html',
   styleUrls: ['./view-unclaim.component.scss'],
@@ -30,6 +33,8 @@ export class ViewUnclaimComponent {
   searchQuery: string = '';
   searchResults: any[] = [];
   showNoResults: boolean = false;
+  loading: boolean = false;
+  panelOpenState = false;
 
   displayedColumns: string[] = ['index', 'image', 'claimDate', 'status', 'action'];
 
@@ -68,7 +73,7 @@ export class ViewUnclaimComponent {
       email: 'pgupta@miraclesoft.com',
       items: [
         {
-          image: 'https://uncommongifts.in/cdn/shop/files/TribefacePrintedWomen_sOfficeBag_8d951812-bc08-4e82-8e0a-310bf5e9bbff_510x@2x.jpg?v=1702898334',
+          image: 'https://www.hamburg-airport.de/resource/image/35168/landscape_ratio5x4_card/670/536/7a8548f5eebfc589a713116c0e10ada8/851A25FEEC37824CB8775EC0A150AD65/fundsachen-lost-and-found-baggage-gepaeck.jpg',
           claimDate: new Date('11/2/2024'),
           status: 'pending request',
           showConfirmation: false,
@@ -104,25 +109,27 @@ export class ViewUnclaimComponent {
     const query = this.searchQuery.trim().toLowerCase();
     if (!query) {
       this.searchResults = [];
-      this.showNoResults = false;  // No results when search query is empty
+      this.showNoResults = false;
       return;
     }
-  
-    const result = this.data.find((entry) => entry.email.toLowerCase() === query);
-    if (result) {
-      this.searchResults = result.items;
-      this.showNoResults = this.searchResults.length === 0;
-    } else {
-      this.searchResults = [];
-      this.showNoResults = true; // Show error message if no email is found
-    }
-  
-    this.sortDataByClaimDate();
+
+    this.loading = true; // Show spinner
+    setTimeout(() => {
+      const result = this.data.find((entry) => entry.email.toLowerCase() === query);
+      if (result) {
+        this.searchResults = result.items;
+        this.showNoResults = this.searchResults.length === 0;
+      } else {
+        this.searchResults = [];
+        this.showNoResults = true;
+      }
+
+      this.sortDataByClaimDate();
+      this.loading = false; 
+    }, 2000);
   }
-  
-  
+
   clearResultsIfEmpty() {
-    // If the input field is empty, clear search results and hide the table
     if (!this.searchQuery.trim()) {
       this.searchResults = [];
       this.showNoResults = false;
@@ -173,4 +180,6 @@ export class ViewUnclaimComponent {
       }
     });
   }
+
+  
 }

@@ -1,64 +1,139 @@
 <mat-tab-group>
-    <mat-tab label="Item Type"><br>
-        <div class="flex items-center justify-center lablestyle">
-            <mat-form-field class="flex-1 small-input" appearance="outline">
-                <mat-label>Search</mat-label>
-                <input type="text" placeholder="Select itemType" aria-label="Select itemType" matInput
-                    [(ngModel)]="searchQuery" />
+    <mat-tab label="Item Type">
+      <div class="mat-tab-body-content mt-[98px]">
+        <div class="flex flex-col items-center lablestyle space-y-4">
+          <!-- Heading for Item Search -->
+          <h3 class="text-2xl font-semibold">Item Search</h3>
+    
+          <!-- Search Input and Button -->
+          <div class="flex flex-col items-center w-full max-w-sm space-y-4">
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Search</mat-label>
+              <input
+                type="text"
+                placeholder="Enter item name"
+                aria-label="Search"
+                matInput
+                [(ngModel)]="searchQuery" />
             </mat-form-field>
-            <button mat-flat-button class="search-button" (click)="onSearch()">
-                <span class="flex items-center space-x-2">
-                    <mat-icon>search</mat-icon>
-                    <span>Search</span>
-                </span>
+    
+            <button mat-raised-button color="primary" class="search-button w-full" (click)="searchItems()">
+              <span class="flex items-center space-x-1">
+                <mat-icon>search</mat-icon>
+                <span>Search</span>
+              </span>
             </button>
-        </div>
-        <div class="card-container">
-            <div *ngFor="let item of searchResults" class="card">
-                <mat-card class="search-card">
-                    <mat-card-content>
-                        <img *ngIf="item.image" [src]="'data:image/jpeg;base64,' + item.image" alt="Item Image"
-                            class="item-image" />
-                        <p *ngIf="!item.image">No image available</p>
-                    </mat-card-content>
-                    <mat-card-header>
-                        <mat-card-title style="font-size: 15px;">{{ item.itemName }}</mat-card-title>
-                    </mat-card-header>
-                </mat-card>
+          </div>
+    
+          <!-- Display search results -->
+          <div *ngIf="searchResults.length > 0" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div *ngFor="let item of searchResults" class="item-card p-4 border border-gray-300 rounded-lg mb-4">
+              <h4 class="font-semibold text-xl">{{ item.itemName }}</h4>
+              <p><strong>Status:</strong> {{ item.status }}</p>
+              <p><strong>Found Date:</strong> {{ item.foundDate | date:'short' }}</p>
+              <p><strong>Received Date:</strong> {{ item.receivedDate | date:'short' }}</p>
+  
+              
+              <!-- Display Image -->
+              <div *ngIf="item.image">
+                <img [src]="'data:image/jpeg;base64,' + item.image" alt="Item Image" class="w-full h-auto mt-2">
+              </div>
             </div>
-         
+          </div>
+    
+          <!-- Message if no results -->
+          <div *ngIf="searchResults.length === 0 && searchQuery.trim()">
+            <p>No results found for "{{ searchQuery }}"</p>
+          </div>
         </div>
-        <div *ngIf="!searchQuery" class="no-data-container">
-            <img src="https://cdni.iconscout.com/illustration/premium/thumb/missing-data-pattern-illustration-download-in-svg-png-gif-file-formats--document-error-no-pack-design-development-illustrations-9404369.png?f=webp"
-                alt="No data" class="no-data-img" />
-        </div>
+      </div>
     </mat-tab>
-    <mat-tab label="Picture"><br>
-        <div class="upload-container">
-            <ngx-dropzone class="dropzone">
-                <ngx-dropzone-label>
-                    Drag and drop an image here or click to upload
-                </ngx-dropzone-label>
-                <ngx-dropzone-preview></ngx-dropzone-preview>
-            </ngx-dropzone><br />
-            <button mat-raised-button color="primary">
-                <mat-icon>upload</mat-icon>
-                Upload Image
-            </button>
+    
+    
+    <mat-tab label="Picture">
+      <div class="flex flex-col items-center lablestyle space-y-4 mt-[98px]">
+        
+        <!-- Heading for Picture Upload -->
+        <h3 class="text-2xl font-semibold">Upload Picture</h3>
+    
+        <!-- Dropzone Area -->
+        <ngx-dropzone (change)="onSelect($event)" class="w-full max-w-sm">
+          <ngx-dropzone-label>
+            Drag and drop image here or click to upload
+          </ngx-dropzone-label>
+    
+          <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" [removable]="true" *ngFor="let f of files"
+            [file]="f" (removed)="onRemove(f)">
+            <ngx-dropzone-label class="label">{{ f.name }}</ngx-dropzone-label>
+          </ngx-dropzone-preview>
+    
+          <ngx-dropzone-preview *ngFor="let f of files" [file]="f"></ngx-dropzone-preview>
+        </ngx-dropzone>
+    
+        <!-- Upload Button -->
+        <button mat-raised-button color="primary" class="w-full max-w-sm" (click)="onImportToExcel()">
+          <mat-icon>upload</mat-icon>
+          Upload Image
+        </button>
+    
+        <!-- Display Matched Items -->
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div *ngFor="let item of matchedItems" class="p-4 border rounded shadow-md">
+            <h4 class="text-xl font-semibold">{{ item.itemName }}</h4>
+            <p>Status: {{ item.status }}</p>
+            <p>Found Date: {{ item.foundDate | date: 'longDate' }}</p>
+            <p>Received Date: {{ item.receivedDate | date: 'longDate' }}</p>
+            
+            <!-- Display Image (Base64 encoded) -->
+            <img *ngIf="item.image" [src]="'data:image/png;base64,' + item.image" alt="{{ item.itemName }}" class="w-full h-48 object-cover mt-4">
+          </div>
         </div>
+      </div>
     </mat-tab>
-    <mat-tab label="Category"><br>
-        <div class="center-content">
-            <mat-form-field>
-                <mat-label>Cars</mat-label>
-                <select matNativeControl required>
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                </select>
-            </mat-form-field>
-            <button mat-raised-button color="primary">Search</button>
-        </div>
-    </mat-tab>
-</mat-tab-group>
+    
+    
+    
+  
+            <mat-tab label="Category">
+              <div class="mat-tab-body-content mt-[98px]">
+                <div class="flex flex-col items-center lablestyle space-y-4">
+                  <h3 class="text-2xl font-semibold">Select Category</h3>
+                  
+                  <!-- Dropdown -->
+                  <mat-form-field class="w-full max-w-sm">
+                    <mat-label>Items List</mat-label>
+                    <mat-select [(value)]="selectedCategory">
+                      <mat-option *ngFor="let food of foods" [value]="food.viewValue">
+                        {{ food.viewValue }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  
+                  <!-- Search Button -->
+                  <button mat-button color="primary" (click)="search()" class="w-full max-w-sm">
+                    Search
+                  </button>
+                </div>
+              </div>
+              
+              <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <mat-card *ngFor="let item of dataSource" class="w-full">
+                  <mat-card-header>
+                    <mat-card-title>{{ item.itemName }}</mat-card-title>
+                    <mat-card-subtitle>Status: {{ item.status }}</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image [src]="'data:image/png;base64,' + item.image" alt="{{ item.itemName }}" class="w-full h-48 object-cover">
+                  <mat-card-content>
+                    <div><strong>Item ID:</strong> {{ item.itemId }}</div>
+                    <div><strong>Found Date:</strong> {{ item.foundDate | date }}</div>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button mat-button color="accent">View Details</button>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
+            </mat-tab>
+          
+       
+            
+            </mat-tab-group>
