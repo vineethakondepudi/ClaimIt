@@ -11,3 +11,21 @@
     font-weight: bold;
   }
   
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    margin: 200px 0;
+  }
+ 
+  
+  .no-results {
+    text-align: center;
+    font-style: italic;
+    color: gray;
+    font-size: 1rem;
+  }
+  
+  .search-field {
+    width: 100%;
+  }
+  
