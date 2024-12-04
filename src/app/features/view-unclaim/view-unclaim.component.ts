@@ -162,6 +162,7 @@ export class ViewUnclaimComponent {
 
   confirmUnclaim(result: any) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponentComponent, {
+      width: "500px",
       data: {
         message: 'Are you sure you want to unclaim this item?',
       },
