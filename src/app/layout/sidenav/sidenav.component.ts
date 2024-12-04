@@ -13,7 +13,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { AppComponent } from '../../app.component';
 import { ThemeService } from '../theme.service';
 
@@ -34,7 +34,7 @@ import { ThemeService } from '../theme.service';
   styleUrl: './sidenav.component.scss',
 })
 export class SidenavComponent {
-
+  isLoginPage!: boolean;
   isSideNavStatus: boolean = true;
 
   isMobile: boolean = false;
@@ -50,9 +50,12 @@ export class SidenavComponent {
     { name: 'View/Unclaim Item', routeLink: 'view-unclaim', icon: 'task' },
   ];
 
-  constructor(private themeService: ThemeService, private breakpointObserver: BreakpointObserver) {
+  constructor(private themeService: ThemeService, private breakpointObserver: BreakpointObserver,private router: Router) {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile = result.matches;
+    });
+    this.router.events.subscribe(() => {
+      this.isLoginPage = this.router.url.includes('login'); // Check if current route is /login
     });
   }
 

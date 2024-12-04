@@ -2,25 +2,26 @@
   <div class="flex items-center justify-center">
     <div class="w-[68rem]">
       <ng-image-slider
-        #nav
-        [images]="imageObject"
-        [infinite]="true"
-        [autoSlide]="1"
-        [animationSpeed]="1"
-        [imageSize]="{ width: '1080px', height: 350 }"
-        slideImage="1"
-      ></ng-image-slider>
+  #nav
+  [images]="imageObject"
+  [infinite]="true"
+  [autoSlide]="1"   
+  [animationSpeed]="0.5" 
+  [imageSize]="{ width: '1080px', height: 350 }"
+  slideImage="1"
+></ng-image-slider>
+
     </div>
     <br />
   </div>
   <div class="flex flex-col items-center justify-center">
-    <p class="-ml-12 font-bold">Select Organization</p>
+    <br>
+    <span class="-ml-12 font-bold font-black text-2xl">Select Organization</span>
+    <br>
     <mat-form-field class="w-2/12">
       <mat-label>Choose an option</mat-label>
       <mat-select [disabled]="disableSelect.value">
-        <mat-option value="option1">Option 1</mat-option>
-        <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
-        <mat-option value="option3">Option 3</mat-option>
+        <mat-option value="option1">Miracle Software System</mat-option>
       </mat-select>
     </mat-form-field>
   </div>

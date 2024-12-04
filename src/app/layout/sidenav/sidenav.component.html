@@ -1,7 +1,7 @@
 <div class="">
   <mat-toolbar class="toolbar flex justify-between">
     <div class="flex items-center">
-      <h1 class="ml-2 !ml-10">LOGO</h1>
+      <img  src="assets/logo1.JPG"  alt="Logo" class="ml-2 !ml-10 h-8 w-auto" />
       <button
         mat-icon-button
         (click)="toggleSidenav()"
@@ -10,7 +10,7 @@
         <mat-icon>menu</mat-icon>
       </button>
     </div>
-    <div class="icons flex items-center gap-4">
+    <div  class="icons flex items-center gap-4">
       <p routerLink="/about-us">
         <mat-icon>info</mat-icon>
         AboutUs
@@ -36,7 +36,8 @@
     [hasBackdrop]="true"
     class="relative top-16 h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)]"
   >
-    <mat-sidenav
+    <mat-sidenav 
+    *ngIf="!isLoginPage"
       #snav
       [mode]="'push'"
       (openedChange)="onSidenavStateChange($event)"
