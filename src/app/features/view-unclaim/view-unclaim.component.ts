@@ -29,6 +29,7 @@ import { ConfirmationDialogComponentComponent } from '../confirmation-dialog-com
 export class ViewUnclaimComponent {
   searchQuery: string = '';
   searchResults: any[] = [];
+  showNoResults: boolean = false;
 
   displayedColumns: string[] = ['index', 'image', 'claimDate', 'status', 'action'];
 
@@ -103,14 +104,33 @@ export class ViewUnclaimComponent {
     const query = this.searchQuery.trim().toLowerCase();
     if (!query) {
       this.searchResults = [];
+      this.showNoResults = false;  // No results when search query is empty
       return;
     }
-
+  
     const result = this.data.find((entry) => entry.email.toLowerCase() === query);
-    this.searchResults = result ? result.items : [];
-
+    if (result) {
+      this.searchResults = result.items;
+      this.showNoResults = this.searchResults.length === 0;
+    } else {
+      this.searchResults = [];
+      this.showNoResults = true; // Show error message if no email is found
+    }
+  
     this.sortDataByClaimDate();
   }
+  
+  
+  clearResultsIfEmpty() {
+    // If the input field is empty, clear search results and hide the table
+    if (!this.searchQuery.trim()) {
+      this.searchResults = [];
+      this.showNoResults = false;
+    }
+  }
+  
+
+  
 
   showConfirmation(result: any) {
     result.showConfirmation = true;

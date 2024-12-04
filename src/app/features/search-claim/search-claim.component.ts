@@ -19,25 +19,29 @@ import { MatCardModule } from '@angular/material/card';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    NgxDropzoneModule, MatSelectModule, FormsModule,CommonModule,HttpClientModule, MatCardModule 
+    NgxDropzoneModule, MatSelectModule, FormsModule, CommonModule, HttpClientModule, MatCardModule
   ],
   templateUrl: './search-claim.component.html',
   styleUrl: './search-claim.component.scss',
-  providers:[SharedService]
+  providers: [SharedService]
 })
 export class SearchClaimComponent {
   searchQuery: string = '';
   searchResults: any = null;
   favoriteFood: string = '';
+  show = false
   constructor(private service: SharedService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.onSearch()
   }
   onSearch() {
-    if (this.searchQuery) {
+    if (!this.searchQuery) {
+      this.show = true
+    } else {
       this.service.searchItems(this.searchQuery).subscribe({
         next: (response) => {
+          console.log(response);
           this.searchResults = response;
           console.log('Search Results:', this.searchResults);
         },
@@ -47,4 +51,5 @@ export class SearchClaimComponent {
       });
     }
   }
+
 }

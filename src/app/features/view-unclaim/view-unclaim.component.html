@@ -5,14 +5,20 @@
       type="text"
       placeholder="Enter email"
       [(ngModel)]="searchQuery"
-      (keyup.enter)="search()"
+      (keyup.enter)="search()" 
+      (input)="clearResultsIfEmpty()"
     />
     <button mat-icon-button matSuffix (click)="search()" aria-label="Search">
       <mat-icon>search</mat-icon>
     </button>
   </mat-form-field>
   
-  <div *ngIf="searchResults.length > 0; else noResults">
+  <!-- Display error message when no email is found -->
+  <div *ngIf="showNoResults" class="error-message">
+    <p>No results found for the entered email address.</p>
+  </div>
+  
+  <div *ngIf="searchResults.length > 0">
     <h3>Search Results:</h3>
     <table mat-table [dataSource]="searchResults">
       <ng-container matColumnDef="index">
@@ -61,7 +67,5 @@
     </table>
   </div>
   
-  <ng-template #noResults>
-    <p *ngIf="searchQuery">No results found for "{{ searchQuery }}"</p>
-  </ng-template>
+
   
