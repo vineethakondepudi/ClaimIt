@@ -9,7 +9,7 @@ import { SearchClaimComponent } from './features/search-claim/search-claim.compo
 import { ViewUnclaimComponent } from './features/view-unclaim/view-unclaim.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'help', component: InfoComponent },
   { path: 'login', component: LoginComponent },
