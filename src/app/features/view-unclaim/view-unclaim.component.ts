@@ -20,7 +20,7 @@ import { ConfirmationDialogComponentComponent } from '../confirmation-dialog-com
     MatButtonModule,
     ConfirmationDialogComponentComponent,
     MatDialogModule,
-    MatTableModule, // Add MatTableModule for table functionality
+    MatTableModule, 
     CommonModule,
   ],
   templateUrl: './view-unclaim.component.html',
@@ -109,7 +109,6 @@ export class ViewUnclaimComponent {
     const result = this.data.find((entry) => entry.email.toLowerCase() === query);
     this.searchResults = result ? result.items : [];
 
-    // Sort the results by claimDate in descending order after searching
     this.sortDataByClaimDate();
   }
 
@@ -150,7 +149,7 @@ export class ViewUnclaimComponent {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        this.unclaimItem(result); // Proceed with unclaim
+        this.unclaimItem(result); 
       }
     });
   }
