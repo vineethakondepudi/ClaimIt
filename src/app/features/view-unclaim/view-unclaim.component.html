@@ -12,7 +12,7 @@
 
     </div>
     <div class="flex-grow px-5">
-      <mat-card>
+      <mat-card class="w-full">
         <mat-accordion @fadeInUp>
           <mat-expansion-panel hideToggle [expanded]="false" (opened)="containerPanelOpened = true"
             (closed)="containerPanelOpened = false">
@@ -24,14 +24,25 @@
 
 
             </mat-expansion-panel-header>
-            <mat-form-field appearance="outline" class="search-field">
-              <mat-label>Email</mat-label>
-              <input matInput type="text" placeholder="Email" [(ngModel)]="searchQuery" (keyup.enter)="search()"
-                (input)="clearResultsIfEmpty()" />
-              <button mat-icon-button matSuffix (click)="search()" aria-label="Email">
-                <mat-icon>search</mat-icon>
-              </button>
-            </mat-form-field>
+            <div class="flex flex-col sm:flex-row sm:gap-4 gap-5">
+              <mat-form-field appearance="outline" class="search-field">
+                <mat-label>Email</mat-label>
+                <input matInput type="text" placeholder="Email" [(ngModel)]="searchQuery" (keyup.enter)="search()"
+                  (input)="clearResultsIfEmpty()" />
+                <button mat-icon-button matSuffix (click)="search()" aria-label="Email">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </mat-form-field>
+              <div class="gap-3 mr-3 items-end h-10 left-0 buttons">
+                <button mat-button (click)="clear()">
+                  <span style="color: #f44336;">Clear</span>
+                </button>
+                <button mat-flat-button color="primary"
+                  class="bg-transparent text-teal-500 font-semibold py-1 px-4 border border-transparent hover:border-teal-500 rounded">
+                  Search
+                </button>
+              </div>
+            </div>
           </mat-expansion-panel>
         </mat-accordion>
       </mat-card>

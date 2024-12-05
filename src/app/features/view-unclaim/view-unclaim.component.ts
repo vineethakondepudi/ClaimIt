@@ -226,6 +226,8 @@ export class ViewUnclaimComponent {
       }
     });
   }
-
+  clear(){
+    this.searchQuery = ''
+  }
   
 }
