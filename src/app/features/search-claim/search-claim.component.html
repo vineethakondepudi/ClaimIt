@@ -1,140 +1,175 @@
 <mat-tab-group>
-  <mat-tab label="Item Type">
-    <div class="mat-tab-body-content mt-[98px]">
-      <div class="flex flex-col items-center lablestyle space-y-4">
-        <!-- Heading for Item Search -->
-        <h3 class="text-2xl font-semibold">Item Search</h3>
-  
-        <!-- Search Input and Button -->
-        <div class="flex flex-col items-center w-full max-w-sm space-y-4">
-          <mat-form-field class="w-full" appearance="outline">
-            <mat-label>Search</mat-label>
-            <input
-              type="text"
-              placeholder="Enter item name"
-              aria-label="Search"
-              matInput
-              [(ngModel)]="searchQuery" />
-          </mat-form-field>
-  
-          <button mat-raised-button color="primary" class="search-button w-full" (click)="searchItems()">
-            <span class="flex items-center space-x-1">
-              <mat-icon>search</mat-icon>
-              <span>Search</span>
-            </span>
-          </button>
-        </div>
-  
-        <!-- Display search results -->
-        <div *ngIf="searchResults.length > 0" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div *ngFor="let item of searchResults" class="item-card p-4 border border-gray-300 rounded-lg mb-4">
-            <h4 class="font-semibold text-xl">{{ item.itemName }}</h4>
-            <p><strong>Status:</strong> {{ item.status }}</p>
-            <p><strong>Found Date:</strong> {{ item.foundDate | date:'short' }}</p>
-            <p><strong>Received Date:</strong> {{ item.receivedDate | date:'short' }}</p>
+  <div class="min-h-screen flex flex-col">
+    <mat-tab label="Item Type">
 
-            
-            <!-- Display Image -->
-            <div *ngIf="item.image">
-              <img [src]="'data:image/jpeg;base64,' + item.image" alt="Item Image" class="w-full h-auto mt-2">
-            </div>
+      <div class="flex-none px-gutter pt-5 pb-5  bg-[#E8F2F3] ">
+        <div class="flex flex-row justify-between px-5">
+          <div class="flex flex-col">
+            <h1 class="font-semibold max-w-3xs mr-6 text-2xl">Item Type Search</h1>
           </div>
         </div>
-  
-        <!-- Message if no results -->
-        <div *ngIf="searchResults.length === 0 && searchQuery.trim()">
-          <p>No results found for "{{ searchQuery }}"</p>
+        <div class="flex-grow px-5">
+          <mat-card>
+            <mat-accordion >
+              <mat-expansion-panel hideToggle [expanded]="false" (opened)="containerPanelOpened = true"
+                (closed)="containerPanelOpened = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-lg">
+                    <h3 class="font-semibold">Item Type Search</h3>
+                  </mat-panel-title>
+                  <mat-icon>{{ containerPanelOpened ? 'expand_less' : 'expand_more' }}</mat-icon>
+                </mat-expansion-panel-header>
+                <div class="flex flex-col items-center lablestyle space-y-4">
+                  <mat-form-field appearance="outline" class="search-field">
+                    <mat-label>Search</mat-label>
+                    <input type="text" placeholder="Enter item name" aria-label="Search" matInput
+                      [(ngModel)]="searchQuery" />
+                    <button mat-icon-button matSuffix (click)="searchItems()" aria-label="Search">
+                      <mat-icon>search</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-card>
         </div>
       </div>
-    </div>
-  </mat-tab>
-  
-  
-  <mat-tab label="Picture">
-    <div class="flex flex-col items-center lablestyle space-y-4 mt-[98px]">
-      
-      <!-- Heading for Picture Upload -->
-      <h3 class="text-2xl font-semibold">Upload Picture</h3>
-  
-      <!-- Dropzone Area -->
-      <ngx-dropzone (change)="onSelect($event)" class="w-full max-w-sm">
-        <ngx-dropzone-label>
-          Drag and drop image here or click to upload
-        </ngx-dropzone-label>
-  
-        <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" [removable]="true" *ngFor="let f of files"
-          [file]="f" (removed)="onRemove(f)">
-          <ngx-dropzone-label class="label">{{ f.name }}</ngx-dropzone-label>
-        </ngx-dropzone-preview>
-  
-        <ngx-dropzone-preview *ngFor="let f of files" [file]="f"></ngx-dropzone-preview>
-      </ngx-dropzone>
-  
-      <!-- Upload Button -->
-      <button mat-raised-button color="primary" class="w-full max-w-sm" (click)="onImportToExcel()">
-        <mat-icon>upload</mat-icon>
-        Upload Image
-      </button>
-  
-      <!-- Display Matched Items -->
-      <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div *ngFor="let item of matchedItems" class="p-4 border rounded shadow-md">
-          <h4 class="text-xl font-semibold">{{ item.itemName }}</h4>
-          <p>Status: {{ item.status }}</p>
-          <p>Found Date: {{ item.foundDate | date: 'longDate' }}</p>
-          <p>Received Date: {{ item.receivedDate | date: 'longDate' }}</p>
-          
-          <!-- Display Image (Base64 encoded) -->
-          <img *ngIf="item.image" [src]="'data:image/png;base64,' + item.image" alt="{{ item.itemName }}" class="w-full h-48 object-cover mt-4">
-        </div>
+      <div class="flex-grow mt-14 mx-3">
+        <app-datatable [tableData]="searchResults" [tableColumns]="displaycoloums" [isPageable]="true"
+          [paginationSizes]="[5, 10, 15, 20]" [defaultPageSize]="15"></app-datatable>
       </div>
-    </div>
-  </mat-tab>
-  
-  
-  
+    </mat-tab>
+  </div>
 
-          <mat-tab label="Category">
-            <div class="mat-tab-body-content mt-[98px]">
-              <div class="flex flex-col items-center lablestyle space-y-4">
-                <h3 class="text-2xl font-semibold">Select Category</h3>
-                
-                <!-- Dropdown -->
-                <mat-form-field class="w-full max-w-sm">
-                  <mat-label>Items List</mat-label>
-                  <mat-select [(value)]="selectedCategory">
-                    <mat-option *ngFor="let food of foods" [value]="food.viewValue">
-                      {{ food.viewValue }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                
-                <!-- Search Button -->
-                <button mat-button color="primary" (click)="search()" class="w-full max-w-sm">
-                  Search
-                </button>
-              </div>
-            </div>
-            
-            <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <mat-card *ngFor="let item of dataSource" class="w-full">
-                <mat-card-header>
-                  <mat-card-title>{{ item.itemName }}</mat-card-title>
-                  <mat-card-subtitle>Status: {{ item.status }}</mat-card-subtitle>
-                </mat-card-header>
-                <img mat-card-image [src]="'data:image/png;base64,' + item.image" alt="{{ item.itemName }}" class="w-full h-48 object-cover">
-                <mat-card-content>
-                  <div><strong>Item ID:</strong> {{ item.itemId }}</div>
-                  <div><strong>Found Date:</strong> {{ item.foundDate | date }}</div>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button color="accent">View Details</button>
-                </mat-card-actions>
-              </mat-card>
-            </div>
-          </mat-tab>
-        
-     
-          
-          </mat-tab-group>
-  
+  <div class="min-h-screen flex flex-col">
+    <mat-tab label="Picture">
+
+      <div class="flex-none px-gutter pt-5 pb-5  bg-[#E8F2F3] ">
+        <div class="flex flex-row justify-between px-5">
+          <div class="flex flex-col">
+            <h1 class="font-semibold max-w-3xs mr-6 text-2xl">Picture Search</h1>
+          </div>
+        </div>
+        <div class="flex-grow px-5">
+          <mat-card>
+            <mat-accordion >
+              <mat-expansion-panel hideToggle [expanded]="false" (opened)="containerPanelOpened = true"
+                (closed)="containerPanelOpened = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-lg">
+                    <h3 class="font-semibold">Picture Search</h3>
+                  </mat-panel-title>
+                  <mat-icon>{{ containerPanelOpened ? 'expand_less' : 'expand_more' }}</mat-icon>
+                </mat-expansion-panel-header>
+                <div class="flex flex-col items-center lablestyle space-y-4">
+                  <ngx-dropzone (change)="onSelect($event)" class="w-full max-w-sm">
+                    <ngx-dropzone-label>
+                      Drag and drop image here or click to upload
+                    </ngx-dropzone-label>
+
+                    <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" [removable]="true" *ngFor="let f of files"
+                      [file]="f" (removed)="onRemove(f)">
+                      <ngx-dropzone-label class="label">{{ f.name }}</ngx-dropzone-label>
+                    </ngx-dropzone-preview>
+
+                    <ngx-dropzone-preview *ngFor="let f of files" [file]="f"></ngx-dropzone-preview>
+                  </ngx-dropzone>
+                  <button mat-raised-button color="primary" class="w-full max-w-sm" (click)="onImportToExcel()">
+                    <mat-icon>upload</mat-icon>
+                    Upload Image
+                  </button>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-card>
+        </div>
+      </div>
+      <div class="flex-grow mt-14 mx-3">
+        <app-datatable [tableData]="matchedItems" [tableColumns]="displaycoloums" [isPageable]="true"
+          [paginationSizes]="[5, 10, 15, 20]" [defaultPageSize]="15"></app-datatable>
+      </div>
+    </mat-tab>
+
+  </div>
+
+
+
+
+  <div class="min-h-screen flex flex-col">
+    <mat-tab label="Category">
+      <div class="flex-none px-gutter pt-5 pb-5  bg-[#E8F2F3] ">
+        <div class="flex flex-row justify-between px-5">
+          <div class="flex flex-col">
+            <h1 class="font-semibold max-w-3xs mr-6 text-2xl">Select Category</h1>
+          </div>
+        </div>
+        <div class="flex-grow px-5">
+          <div class="flex p-4 bg-white">
+            <!-- Left Section: Accordion -->
+            <mat-card class="flex-grow bg-white shadow-md p-4">
+              <mat-accordion>
+                <mat-expansion-panel hideToggle [expanded]="false" (opened)="containerPanelOpened = true"
+                  (closed)="containerPanelOpened = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title class="text-lg font-semibold">
+                      Category Search
+                    </mat-panel-title>
+                    <mat-icon class="text-blue-500">
+                      {{ containerPanelOpened ? 'expand_less' : 'expand_more' }}
+                    </mat-icon>
+                  </mat-expansion-panel-header>
+
+                  <!-- Form Field and Button Container -->
+                  <div class="flex w-full space-x-4">
+                    <!-- Form field and button in a single column -->
+                    <div class="flex flex-col space-y-4 w-1/3">
+                      <mat-form-field appearance="fill" class="w-full">
+                        <mat-label>Items List</mat-label>
+                        <mat-select [(value)]="selectedCategory">
+                          <mat-option *ngFor="let food of foods" [value]="food.value">
+                            {{ food.viewValue }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <button mat-raised-button color="primary" class="w-full" (click)="search()">
+                        <mat-icon>search</mat-icon>
+                        <span>Search</span>
+                      </button>
+                    </div>
+
+                    <!-- Cards in another column -->
+                    <div class="flex flex-wrap gap-4 w-2/3">
+                      <mat-card *ngFor="let food of foods; index as i"
+                        class="w-40 h-48 shadow-md hover:bg-gray-100 cursor-pointer"
+                        (click)="selectCategory(food.value)">
+                        <mat-card-header class="flex justify-center items-center  custom-icon h-full">
+                          <mat-icon class="items-center justify-center">
+                            {{ getCategoryIcon(food.value) }}
+                          </mat-icon>
+                        </mat-card-header>
+                        <mat-card-title class="text-center text-sm font-medium">
+                          {{ food.viewValue }}
+                        </mat-card-title>
+                      </mat-card>
+
+                    </div>
+                  </div>
+
+
+
+                </mat-expansion-panel>
+              </mat-accordion>
+            </mat-card>
+          </div>
+
+        </div>
+      </div>
+      <div class="flex-grow mt-14 mx-3">
+        <app-datatable [tableData]="categerorydata" [tableColumns]="displaycoloums" [isPageable]="true"
+          [paginationSizes]="[5, 10, 15, 20]" [defaultPageSize]="15"></app-datatable>
+      </div>
+    </mat-tab>
+
+  </div>
+
+</mat-tab-group>

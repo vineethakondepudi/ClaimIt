@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,6 +15,10 @@ import { MatCardModule } from '@angular/material/card';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SharedService } from '../../../shared.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DatatableComponent } from '../datatable/datatable.component';
 interface Food {
   value: string;
   viewValue: string;
@@ -44,6 +48,11 @@ interface Item {
     MatIconModule,
     MatTableModule,
     MatCardModule,
+    MatExpansionModule,
+    MatDialogModule,
+    DatatableComponent,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
     NgxDropzoneModule, MatSelectModule,  FormsModule,HttpClientModule
   ],
   templateUrl: './search-claim.component.html',
@@ -52,11 +61,50 @@ interface Item {
 })
 export class SearchClaimComponent {
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
+  @Input() containerPanelOpened: boolean = false;
+  displaycoloums: any[] = [
+    {
+      label: "Image Data",
+      name: "image",
+      type: "image",
+      isSortable: true,
+      position: "left",
+      isChecked: true,
+      index: 1,
+    },
+    {
+      label: "Status",
+      name: "status",
+      type: "text",
+      isSortable: true,
+      position: "left",
+      isChecked: true,
+      index: 1,
+    },
+    {
+      label: "FoundDate",
+      name: "foundDate",
+      type: "date",
+      isSortable: true,
+      position: "left",
+      isChecked: true,
+      index: 1,
+    },
+    {
+      label: "ReceivedDate",
+      name: "receivedDate",
+      type: "date",
+      isSortable: true,
+      position: "left",
+      isChecked: true,
+      index: 1,
+    },
+  ]
   files: File[] = [];
   uplodedfilesdata: any[] = []
-  matchedItems: any[] = [];
+  matchedItems: any = [];
   items: any[] = [];
-  searchResults: any[] = [];
+  searchResults: any= [];
   searchQuery: string = '';
   foods = [
     { value: 'Apparel', viewValue: 'Apparel' },
@@ -65,7 +113,8 @@ export class SearchClaimComponent {
     { value: 'Others', viewValue: 'Others' }
   ];
   displayedColumns: string[] = ['itemId', 'itemName', 'status', 'foundDate', 'categoryId', 'actions'];
-  dataSource: any[] = [];
+  dataSource: any = [];
+  categerorydata: any = [];
 
   selectedCategory: string = '';
   
@@ -81,7 +130,7 @@ searchItems() {
     const apiUrl = `http://172.17.12.38:8081/api/users/search?query=${encodeURIComponent(this.searchQuery)}`;
     
     this.http.get<Item[]>(apiUrl).subscribe(
-      (response) => {
+      (response: Item[]) => {
         this.searchResults = response;
         console.log('Search results:', response);
         
@@ -106,14 +155,17 @@ searchItems() {
     const apiUrl = `http://172.17.12.38:8081/api/users/search?query=${this.selectedCategory}`;
     this.http.get<any[]>(apiUrl).subscribe(
       data => {
-        this.dataSource = data; // Directly set if it's an array
+        this.categerorydata = data; // Directly set if it's an array
       },
       error => {
         console.error('API Error:', error);
       }
     );
   }
-  
+  selectCategory(category: string) {
+    this.selectedCategory = category;
+    this.search();
+  }
   //picture upload integration 
   public   onSelect(event: any): void {
     const files = event.addedFiles;
@@ -131,7 +183,20 @@ searchItems() {
       );
     }
   }
-
+  getCategoryIcon(value: string): string {
+    switch (value) {
+      case 'Apparel':
+        return 'checkroom'; // Icon for Apparel
+      case 'Footwear':
+        return 'sports_handball'; // Icon for Footwear
+      case 'Miscellaneous':
+        return 'category'; // Icon for Miscellaneous
+      case 'Others':
+        return 'more_horiz'; // Icon for Others
+      default:
+        return 'help';
+    }
+  }
   uploadImage(file: File): Observable<any> {
     // Create FormData to send the file in the body of the POST request
     const formData: FormData = new FormData();
