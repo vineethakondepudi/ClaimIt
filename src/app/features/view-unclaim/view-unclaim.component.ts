@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { FooterComponent } from '../../layout/footer/footer.component';
 @Component({
   selector: 'app-view-unclaim',
   standalone: true,
@@ -22,6 +23,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatIconModule,
     FormsModule,
     MatButtonModule,
+    FooterComponent,
     ConfirmationDialogComponentComponent,
     MatExpansionModule,
     MatDialogModule,

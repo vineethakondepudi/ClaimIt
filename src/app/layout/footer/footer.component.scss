@@ -1,0 +1,16 @@
+@media screen and (min-width:768px) and (max-width: 794px) {
+
+    .key{
+        margin-left: 291%;
+    }
+
+  }
+
+ :host ::ng-deep.mat-mdc-card {
+    position: relative;
+    border-radius: var(--mdc-elevated-card-container-shape, var(--mdc-shape-medium, 4px));
+    background-color: var(--mdc-elevated-card-container-color, transparent);
+    border-width: 0;
+    border-style: solid;
+    border-color: var(--mdc-elevated-card-container-color, transparent);
+  }

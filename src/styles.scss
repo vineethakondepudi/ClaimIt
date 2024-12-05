@@ -11,14 +11,72 @@ html {
       typography: Roboto,
       density: 0));
 }
+html,
+body {
+  height: 100%;
+}
 
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+.table-container {
+  display: flex;
+  flex-direction: column;
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+
+.dashboard-table-row{
+  .mat-mdc-table .mdc-data-table__row:hover {
+    cursor: default;
+    background-color: inherit !important;
+  }
+}
+
+.mat-mdc-table .mdc-data-table__row:hover {
+  cursor: pointer;
+ background-color: #e5f4f3 !important;
+}
 // Dark theme
 body.dark-theme {
   color-scheme: dark;
   background-color: black !important;
 
 }
+.mat-mdc-table .mdc-data-table__row {
+  height: 45px !important;
+  padding: 2px !important;
+ }
+ .mat-sort-header-content{
+  font-weight:600;
+  text-transform: uppercase;
+}
+.dashboard-table-row{
+  .mat-mdc-table .mdc-data-table__row:hover {
+    cursor: default;
+    background-color: inherit !important;
+  }
+}
 
+.mat-mdc-table .mdc-data-table__row:hover {
+  cursor: pointer;
+ background-color: #e5f4f3 !important;
+}
+.mat-mdc-snack-bar-container {
+  &.green-snackbar {
+    --mdc-snackbar-container-color: #115e59;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+
+  &.red-snackbar {
+    --mdc-snackbar-container-color:#9f1239;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+
+}
 .mat-drawer-backdrop {
   position: fixed !important;
 }
@@ -54,7 +112,33 @@ body.dark-theme {
   background-color: #a0a0a0;
   /* Slightly darker grey on hover */
 }
+@media print {
+  .no-print-section {
+    display: none !important;
+  }
+  .print-only {
+    display:flex !important;  
+    flex-wrap:wrap;
 
+  }
+
+  .custom-print-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+
+  .custom-print-table tr,
+  .custom-print-table th,
+  .custom-print-table td {
+    border: none;    
+  }
+
+  .custom-print-table th,
+  .custom-print-table td {
+    padding: 0.5rem 0.5rem;
+  }
+}
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
