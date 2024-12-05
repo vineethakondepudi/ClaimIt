@@ -82,7 +82,7 @@ export class SidenavComponent {
                 { name: 'Home', routeLink: '/home', icon: 'home' },
                 { name: 'Add Item', routeLink: 'add-item', icon: 'add' },
                 { name: 'Remove/Archive Item', routeLink: 'remove-archive', icon: 'archive' },
-                { name: 'Search', routeLink: 'search', icon: 'search' },
+                { name: 'Search', routeLink: 'search-claim', icon: 'search' },
             ];
         } else if (role === 'user') {
             this.fillerNav = [

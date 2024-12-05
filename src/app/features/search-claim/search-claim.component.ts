@@ -14,7 +14,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SharedService } from '../../../shared.service';
+import { SharedService } from '../shared.service';
+import { FooterComponent } from '../../layout/footer/footer.component';
 interface Food {
   value: string;
   viewValue: string;
@@ -44,6 +45,7 @@ interface Item {
     MatIconModule,
     MatTableModule,
     MatCardModule,
+    FooterComponent,
     NgxDropzoneModule, MatSelectModule,  FormsModule,HttpClientModule
   ],
   templateUrl: './search-claim.component.html',
