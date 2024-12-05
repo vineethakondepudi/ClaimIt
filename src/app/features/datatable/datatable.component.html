@@ -29,10 +29,10 @@
                     <div *ngIf="tableColumn.type === 'date' ">
                         {{ element[tableColumn.name] | date:'M/d/yyyy, h:mm a' }}
                     </div>
-                    <div *ngIf="tableColumn.label === 'Image Data'">
+                    <!-- <div *ngIf="tableColumn.label === 'Image Data'">
                         <img [src]="'data:image/jpeg;base64,' + element.image" alt="Item Image" class="item-image"
                             style="max-width: 100px; max-height: 100px;" />
-                    </div>
+                    </div> -->
                     <div *ngIf="tableColumn.type === 'image'">
                         <img [src]="element.image" alt="Item Image" class="item-image"
                             style="max-width: 100px; max-height: 100px;" />
