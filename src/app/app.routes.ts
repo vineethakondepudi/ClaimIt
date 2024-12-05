@@ -7,6 +7,9 @@ import { AboutUsComponent } from './features/about-us/about-us.component';
 import { ContactUsComponent } from './features/contact-us/contact-us.component';
 import { SearchClaimComponent } from './features/search-claim/search-claim.component';
 import { ViewUnclaimComponent } from './features/view-unclaim/view-unclaim.component';
+import { AddItemComponent } from './features/add-item/add-item.component';
+import { RemoveArchiveComponent } from './features/remove-archive/remove-archive.component';
+import { SearchComponent } from './features/search/search.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,4 +20,7 @@ export const routes: Routes = [
   { path: 'contact-us', component: ContactUsComponent },
   { path: 'search-claim', component: SearchClaimComponent },
   { path: 'view-unclaim', component: ViewUnclaimComponent },
+  { path: 'add-item', component: AddItemComponent },
+  { path: 'remove-archive', component: RemoveArchiveComponent },
+  { path: 'search', component: SearchComponent },
 ];

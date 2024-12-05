@@ -4,9 +4,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedService } from '../shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -21,47 +18,49 @@ import { Router } from '@angular/router';
     CommonModule,
     HttpClientModule
   ],
-  providers: [SharedService],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
-
 export class LoginComponent {
   itemFamilyRequiredError: boolean = false;
   itemFamilyRequiredErrorMessage: string = '';
   loginForm: FormGroup;
-  constructor(private fb: FormBuilder, private sharedService: SharedService, private router: Router) {
+
+  constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
+
   get email() {
     return this.loginForm.get('email');
   }
 
+  get password() {
+    return this.loginForm.get('password');
+  }
+
   onSubmit() {
     if (this.loginForm.valid) {
-      const { email } = this.loginForm.value;
-      this.sharedService.login(email).subscribe(
-        (response) => {
-          // Handle successful login
-          console.log('Login successful:', response);
-          if (response.message === 'Email is not valid , please check once') {
-            console.log('hidata')
-            this.itemFamilyRequiredError = true
-          } else {
-            this.itemFamilyRequiredError = false
-          }
-          if (response.message === 'Login Successfully') {
-            this.router.navigate(['/home']);
-          }
-        },
-        (error) => {
-          // Handle login error
-          console.error('Login failed:', error);
-
-        }
-      );
+      const { email, password } = this.loginForm.value;
+  
+      if (email === 'pgupta@miraclesoft.com' && password === 'Gupta@123') {
+        alert('Logged in as Admin');
+        localStorage.setItem('role', 'admin');
+        this.router.navigate(['/home']);
+      } else if (
+        (email === 'vkondepudi@miraclesoft.com' && password === 'Vinnu@123') ||
+        (email === 'vpidugu@miraclesoft.com' && password === 'Vani@123')
+      ) {
+        alert('Logged in as User');
+        localStorage.setItem('role', 'user');
+        this.router.navigate(['/home']);
+      } else {
+        this.itemFamilyRequiredError = true;
+        this.itemFamilyRequiredErrorMessage = 'Invalid email or password. Please try again.';
+      }
     }
   }
+  
 }
