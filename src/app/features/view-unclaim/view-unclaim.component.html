@@ -32,8 +32,7 @@
                 <button mat-button (click)="SearchAndClear('clear')">
                   <span style="color: #f44336;">Clear</span>
                 </button>
-                <button mat-flat-button color="primary"
-                (click)="SearchAndClear('search')">
+                <button mat-flat-button color="primary" (click)="SearchAndClear('search')">
                   Search
                 </button>
               </div>
@@ -44,8 +43,8 @@
     </div>
   </div>
   <div class="flex-grow mt-5 mx-3">
-    <app-datatable (unClaim)="confirmUnclaim($event)" [tableData]="searchResults" [tableColumns]="displaycoloums" [isPageable]="true"
-      [paginationSizes]="[5, 10, 15, 20]" [defaultPageSize]="15"></app-datatable>
+    <app-datatable (unClaim)="confirmUnclaim($event)" [tableData]="searchResults" [tableColumns]="displaycoloums"
+      [isPageable]="true" [paginationSizes]="[5, 10, 15, 20]" [defaultPageSize]="15"></app-datatable>
   </div>
 
 </div>
