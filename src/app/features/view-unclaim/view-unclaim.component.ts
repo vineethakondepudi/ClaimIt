@@ -24,16 +24,15 @@ import { FooterComponent } from '../../layout/footer/footer.component';
     FormsModule,
     MatButtonModule,
     FooterComponent,
-    ConfirmationDialogComponentComponent,
     MatExpansionModule,
     MatDialogModule,
-    MatTableModule, 
+    MatTableModule,
     CommonModule,
     MatCardModule,
     DatatableComponent,
     MatProgressSpinnerModule,
     MatExpansionModule
-  ],
+],
   templateUrl: './view-unclaim.component.html',
   styleUrls: ['./view-unclaim.component.scss'],
 })
@@ -178,6 +177,8 @@ export class ViewUnclaimComponent {
     if (!this.searchQuery.trim()) {
       this.searchResults = [];
       this.showNoResults = false;
+    }else{
+      this.search()
     }
   }
   
@@ -217,6 +218,7 @@ export class ViewUnclaimComponent {
       width: "500px",
       data: {
         message: 'Are you sure you want to unclaim this item?',
+        title:'UnClaim'
       },
     });
 
@@ -226,8 +228,14 @@ export class ViewUnclaimComponent {
       }
     });
   }
-  clear(){
-    this.searchQuery = ''
+  SearchAndClear(type:any){
+    if(type==='clear'){
+      this.searchResults = [];
+      this.showNoResults = false;
+    }else{
+
+    }
+    
   }
   
 }

@@ -1,7 +1,7 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -29,7 +29,7 @@ import { DataPropertyPipePipe } from '../data-property-pipe.pipe';
     FormsModule,
     MatMenuModule,
     MatCheckboxModule,
-    OverlayModule],  standalone: true,
+    OverlayModule], standalone: true,
   templateUrl: './datatable.component.html',
   styleUrl: './datatable.component.scss',
   providers: [DatePipe],
@@ -41,7 +41,7 @@ export class DatatableComponent {
   filteredColumns: Array<any> = [];
   @Input() set tableData(data: []) {
     this.setTableDataSource(data);
-  }  
+  }
   dataSource: any; // Variable to hold JSON data
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   @ViewChild(MatPaginator, { static: false })
@@ -51,6 +51,7 @@ export class DatatableComponent {
   @Input() isPageable = false;
   @Input() paginationSizes: number[] = [5, 10, 15];
   @Input() defaultPageSize = 10;
+  @Output() unClaim = new EventEmitter()
   constructor(public readonly router: Router, private datePipe: DatePipe) { }
   ngOnInit() {
     this.displayedColumns = this.tableColumns.map((col) => col.name);
@@ -93,5 +94,8 @@ export class DatatableComponent {
       default:
         return '';
     }
+  }
+  unClaimItem(data: any) {
+    this.unClaim.emit(data)
   }
 }
