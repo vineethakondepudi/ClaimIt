@@ -1,22 +1,4 @@
-.InnerTable {
 
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    padding: 5px;
-    margin-bottom: 5px;
-    // margin-top:5px ;
-  
-    border: 1px solid #dddddd;
-  
-  }
-  
-  .innerData {
-    border: 1px solid #dddddd;
-    text-align: left;
-  
-  
-  }
   :host ::ng-deep .backgrougcolour {
     color: rgb(224, 19, 64);
   }
@@ -221,81 +203,13 @@
       }
     }
   }
-  
-  .kpi-table-reponsive{
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    .mat-table {
-      width: 100%;
-      max-width: 100%;
-      margin-bottom: 1rem;
-      display: table;
-      border-collapse: collapse;
-      margin: 0px;
-    }
-    .mat-row,
-    .mat-header-row {
-      display: table-row;
-    }
-    .mat-cell,
-    .mat-header-cell {
-      word-wrap: initial;
-      display: table-cell;
-      padding: 0px 5px;
-      line-break: unset;
-      width: auto;
-      white-space: nowrap;
-      overflow: hidden;
-      vertical-align: middle;
-      text-overflow: ellipsis;
-      border: 1px solid
-    }
-  
-    th.mat-header-cell {
-      text-align: center;
-    }
-  
-    td.mat-cell {
-      text-align: center;
-    }
-    
-    .mdc-data-table__header-cell{
-      border: 1px solid #ccc;
-      text-overflow: ellipsis;
-      text-transform: uppercase;
-    }
-  
-    .mdc-data-table__cell {
-      height: 45px;
-    }
-  
-    ::ng-deep .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
-      opacity: 0.3 !important;
-      transform: translateY(0px) !important;
-      // color: aquamarine !important;
-    }
-  
-    ::ng-deep.mat-sort-header-arrow {
-      color: #1b6772;
-      height: 13px;
-      padding: 2px;
-    }
-    
-    .not-sortable-header{
-      font-weight:600;
-      text-transform: uppercase;
-    }
-  }
   tr.example-detail-row {
     height: 0 !important;
   }
   .paginator{
     display: none;
   }
-  :host ::ng-deep .backgrougcolour {
-    color: rgb(224, 19, 64);
-  }
+  
   .mat-icon.custom-icon {
     font-size: 24px; 
     width: 20px; 
@@ -334,3 +248,7 @@
     white-space: nowrap;
   }
   
+:host ::ng-deep  .mat-mdc-table tbody, .mat-mdc-table tfoot, .mat-mdc-table thead, .mat-mdc-cell, .mat-mdc-footer-cell, .mat-mdc-header-row, .mat-mdc-row, .mat-mdc-footer-row, .mat-mdc-table .mat-mdc-header-cell {
+    background: inherit;
+    border-color: darkgrey;
+  }
