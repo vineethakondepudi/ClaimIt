@@ -1,88 +1,88 @@
-<mat-expansion-panel>
-    <mat-expansion-panel-header>
-      Search
-    </mat-expansion-panel-header>
-  
-    <mat-form-field appearance="outline" class="search-field">
-      <input
-        matInput
-        type="text"
-        placeholder="Enter email"
-        [(ngModel)]="searchQuery"
-        (keyup.enter)="search()"
-        (input)="clearResultsIfEmpty()"
-      />
-      <button mat-icon-button matSuffix (click)="search()" aria-label="Search">
-        <mat-icon>search</mat-icon>
-      </button>
-    </mat-form-field>
-  </mat-expansion-panel>
-  
-  <!-- Show spinner when loading -->
-  <div *ngIf="loading" class="spinner-container">
-    <mat-spinner></mat-spinner>
-  </div>
-  
-  <!-- Show table with column headers and conditionally display rows -->
-  <div *ngIf="!loading">
-    <h3 *ngIf="searchResults.length > 0 || showNoResults">Results:</h3>
-    <table mat-table [dataSource]="searchResults" class="mat-elevation-z8">
-  
-      <!-- Index Column -->
-      <ng-container matColumnDef="index">
-        <th mat-header-cell *matHeaderCellDef> # </th>
-        <td mat-cell *matCellDef="let result; let i = index"> {{ i + 1 }} </td>
-      </ng-container>
-  
-      <!-- Image Column -->
-      <ng-container matColumnDef="image">
-        <th mat-header-cell *matHeaderCellDef> Image </th>
-        <td mat-cell *matCellDef="let result">
-          <img
-            *ngIf="result.image"
-            [src]="result.image"
-            alt="Item Image"
-            class="item-image"
-            style="max-width: 100px; max-height: 100px;"
-          />
-        </td>
-      </ng-container>
-  
-      <!-- Claim Date Column -->
-      <ng-container matColumnDef="claimDate">
-        <th mat-header-cell *matHeaderCellDef> Claim Date </th>
-        <td mat-cell *matCellDef="let result"> {{ result.claimDate | date }} </td>
-      </ng-container>
-  
-      <!-- Status Column -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
-        <td mat-cell *matCellDef="let result"> {{ result.status | titlecase }} </td>
-      </ng-container>
-  
-      <!-- Action Column -->
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef> Action </th>
-        <td mat-cell *matCellDef="let result">
-          <button
-            *ngIf="result.status !== 'claimed'"
-            mat-raised-button
-            [color]="getButtonColor(result.status)"
-            (click)="confirmUnclaim(result)"
-          >
-            Unclaim
-          </button>
-        </td>
-      </ng-container>
-  
-      <!-- Header and Row Definitions -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <!-- No Data Message -->
-    <div *ngIf="showNoResults && searchResults.length === 0" class="no-data-message">
-      <p>No data found for the entered email address.</p>
+
+<div class="min-h-screen flex flex-col">
+  <div class="flex-none px-gutter pt-5 pb-5  bg-[#E8F2F3] ">
+    <div @fadeInRight class="flex flex-row justify-between px-5">
+      <div class="flex flex-col">
+        <h1 class="font-semibold max-w-3xs mr-6 text-2xl">View / Unclaim Item</h1>
+
+      </div>
+
+      <div *ngIf="showNoResults" class="error-message">
+        <p>No results found for the entered email address.</p>
+      </div>
+      
+    </div>
+    <div class="flex-grow px-5">
+      <mat-card>
+        <mat-accordion @fadeInUp>
+          <mat-expansion-panel hideToggle [expanded]="false" (opened)="containerPanelOpened = true"
+            (closed)="containerPanelOpened = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="text-lg">
+                <h3 class="font-semibold">Search</h3>
+              </mat-panel-title>
+              <mat-icon>{{ containerPanelOpened ? 'expand_less' : 'expand_more' }}</mat-icon>
+              
+
+            </mat-expansion-panel-header>
+            <mat-form-field appearance="outline" class="search-field">
+              <mat-label>Search</mat-label>
+              <input matInput type="text" placeholder="Enter email" [(ngModel)]="searchQuery" (keyup.enter)="search()"
+                (input)="clearResultsIfEmpty()" />
+              <button mat-icon-button matSuffix (click)="search()" aria-label="Search">
+                <mat-icon>search</mat-icon>
+              </button>
+            </mat-form-field>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card>
     </div>
   </div>
-  
+  <div class="flex-grow mt-14 mx-3">
+    <app-datatable [tableData]="searchResults" [tableColumns]="displaycoloums" [isPageable]="true"
+      [paginationSizes]="[5, 10, 15, 20]" [defaultPageSize]="15"></app-datatable>
+  </div>
+</div>
+
+
+
+<!-- <div *ngIf="searchResults.length > 0">
+  <h3>Search Results:</h3>
+  <table mat-table [dataSource]="searchResults">
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef> # </th>
+      <td mat-cell *matCellDef="let result; let i = index"> {{i + 1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef> Image </th>
+      <td mat-cell *matCellDef="let result">
+        <img *ngIf="result.image" [src]="result.image" alt="Item Image" class="item-image"
+          style="max-width: 100px; max-height: 100px;" />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="claimDate">
+      <th mat-header-cell *matHeaderCellDef> Claim Date </th>
+      <td mat-cell *matCellDef="let result"> {{ result.claimDate | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let result"> {{ result.status | titlecase }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let result">
+        <button *ngIf="result.status !== 'claimed'" mat-raised-button [color]="getButtonColor(result.status)"
+          (click)="confirmUnclaim(result)">
+          Unclaim
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div> -->
